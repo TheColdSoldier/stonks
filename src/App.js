@@ -1,23 +1,20 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import TopGainers from './components/TopGainers';
+import TrendsChart from './components/TrendsChart';
+import Advice from './components/Advice';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Stock Market Dashboard</h1>
       </header>
+      <main>
+        <TopGainers />
+        <TrendsChart />
+        <Advice />
+      </main>
     </div>
   );
 }
