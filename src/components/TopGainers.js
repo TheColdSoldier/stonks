@@ -22,16 +22,18 @@ const TopGainers = () => {
   }, [API_KEY]);
 
   return (
+    <div className="sidebar">
     <section className="TopGainers">
       <h2>Top Gainers of the Day</h2>
       <ul>
-        {gainers.slice(0, 5).map((stock) => (
+        {gainers.map((stock) => (
           <li key={stock.ticker}>
             {stock.ticker}: {stock.changesPercentage}
           </li>
         ))}
       </ul>
     </section>
+    </div>
   );
 };
 

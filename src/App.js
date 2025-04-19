@@ -10,10 +10,12 @@ function App() {
       <header className="App-header">
         <h1>Stock Market Dashboard</h1>
       </header>
-      <main>
-        <TopGainers />
-        <TrendsChart />
-        <Advice />
+      <main className="page-layout">
+        <TopGainers/>
+        <div className="content">
+          <TrendsChart/>
+          <Advice/>
+        </div>
       </main>
     </div>
   );
