@@ -2,16 +2,9 @@
 TODO LATER
 
 ## Goals that we plan on achieving for this app
-### API Key Textbox
-Allow users to enter in a key through a textbox on site which would make it easy for them to avoid having to edit the code manually
-### Investment Advice
-### Minigraphs
-Maybe add some minigraphs for specific stocks to show investors a quick glance at them
 ### Cryptos and ETFs?
 
 ### FIX THE TEXT IT IS UNREADABLE 
-### Dark Mode / Light Mode Toggle
-Self-Explanatory
 ### Company Info (This one might be a little too complex)
 Show Additional info like:
 * Company profile

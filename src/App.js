@@ -13,14 +13,18 @@ function App() {
   const [currentPage, setCurrentPage] = useState('Dashboard');
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
+  const [theme, setTheme] = useState('dark');
 
 
-  useEffect(() => {
-    const storedWatchlist = localStorage.getItem('watchlist');
-    if (storedWatchlist) {
-      setWatchlist(JSON.parse(storedWatchlist));
-    }
-  }, []);
+    useEffect(() => {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      setTheme(savedTheme);
+    }, []);
+
+    useEffect(() => {
+      localStorage.setItem('theme', theme);
+    }, [theme]);
+    
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -51,7 +55,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={`App ${theme}`}>
       <header className="App-header">
         <div className="dropdown-container" ref={dropdownRef}>
           <div className="dropdown-toggle" onClick={() => setShowDropdown(prev => !prev)}>
@@ -105,11 +109,20 @@ function App() {
       {currentPage === 'Settings' && (
         <main className="content">
           <h2 style={{ marginLeft: '20px' }}>⚙️ Settings</h2>
-          <p style={{ marginLeft: '20px' }}>Coming soon: Theme switcher, API key input, etc.</p>
+         <div style={{ marginLeft: '20px', marginTop: '10px' }}>
+           <label htmlFor="theme-toggle">Toggle Theme: </label>
+           <select
+             id="theme-toggle"
+             value={theme}
+             onChange={(e) => setTheme(e.target.value)}
+           >
+             <option value="dark">Dark</option>
+             <option value="light">Light</option>
+           </select>
+         </div>
         </main>
       )}
     </div>
   );
 }
-
 export default App;

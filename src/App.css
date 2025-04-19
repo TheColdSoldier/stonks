@@ -22,7 +22,74 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   transition: background-color 0.3s;
 }
+.App.light {
+  background-color: #f4f4f4;
+  color: #1e1e1e;
+}
 
+.App.light .App-header {
+  background-color: #e0e0e0;
+}
+
+.App.light .dropdown-toggle,
+.App.light .dropdown-menu,
+.App.light .sidebar,
+.App.light section {
+  background-color: #ffffff;
+  color: #1e1e1e;
+}
+
+.App.light .stock-gain {
+  color: green;
+}
+.App.light .stock-loss {
+  color: red;
+}
+
+.App.light,
+.App.light .App-header,
+.App.light .dropdown-toggle,
+.App.light .dropdown-menu div,
+.App.light .sidebar h2,
+.App.light .sidebar li,
+.App.light .stock-ticker,
+.App.light .search-bar input,
+.App.light .search-bar button,
+.App.light section h2,
+.App.light .stock-item {
+  color: #000000;
+}
+
+.App.light .search-bar input {
+  background-color: #ffffff;
+}
+
+.App.light .search-bar button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.App.light .dropdown-toggle:hover {
+  background-color: #cccccc;
+}
+
+.App.light .dropdown-menu {
+  background-color: #f9f9f9;
+}
+
+.App.light .range-selector button {
+  background-color: #dddddd;
+  color: #000;
+}
+
+.App.light .range-selector button:hover {
+  background-color: #cccccc;
+}
+
+.App.light .range-selector .active {
+  background-color: #4caf50;
+  color: white;
+}
 .dropdown-toggle:hover {
   background-color: #3e3e4e;
 }
