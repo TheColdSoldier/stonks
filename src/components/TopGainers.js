@@ -1,8 +1,7 @@
-// TopGainers.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const TopGainers = ({ onStockSelect }) => {
+const TopGainers = ({ onStockSelect, watchlist, toggleWatch }) => {
   const [gainers, setGainers] = useState([]);
   const API_KEY = process.env.REACT_APP_FMP_API_KEY;
 
@@ -21,23 +20,33 @@ const TopGainers = ({ onStockSelect }) => {
   }, [API_KEY]);
 
   return (
-    <div className="top-gainers">
-      <h2>Top Gainers of the Day</h2>
-      <ul>
-        {gainers.map((stock) => (
-          <ul>
-            {gainers.slice(0, 5).map((stock) => (
-              <li key={stock.ticker} onClick={() => onStockSelect?.(stock.ticker)}>
-                <div className="stock-item">
-                  <div className="stock-ticker">{stock.ticker}</div>
-                  <span className="stock-gain">{stock.changesPercentage}</span>
+      <div className="top-gainers">
+        <h2>Top Gainers of the Day</h2>
+        <ul>
+          {gainers.map((stock) => (
+            <li key={stock.ticker}>
+              <div className="stock-item">
+                <div
+                  className="stock-ticker"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => onStockSelect?.(stock.ticker)}
+                >
+                  {stock.ticker}
                 </div>
-              </li>
-            ))}
-          </ul>
-        ))}
-      </ul>
-    </div>
+                <div>
+                  <span className="stock-gain">{stock.changesPercentage}</span>
+                  <button
+                    onClick={() => toggleWatch?.(stock.ticker)}
+                    style={{ marginLeft: '10px', cursor: 'pointer' }}
+                  >
+                    {watchlist?.includes(stock.ticker) ? '★' : '☆'}
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
   );
 };
 

@@ -34,13 +34,25 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 0 15px rgba(0,0,0,0.3);
-  max-height: 90vh;
+  max-height: 950px;
   overflow-y: auto;
 }
 
 .sidebar li:hover {
   background-color: #2e2e3d;
   cursor: pointer;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: #f0f0f0;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  color: #ffcc00;
 }
 
 .sidebar h2 {

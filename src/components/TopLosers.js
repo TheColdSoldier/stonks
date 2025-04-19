@@ -1,7 +1,6 @@
 import React, { useState, useEffect} from "react";
 import axios from 'axios';
-//TODO:
-const TopLosers = ({ onStockSelect }) => {
+const TopLosers = ({ onStockSelect, watchlist, toggleWatch }) => {
   const [losers, setLosers] = useState([]);
   const API_KEY = process.env.REACT_APP_FMP_API_KEY;
 
@@ -20,21 +19,33 @@ const TopLosers = ({ onStockSelect }) => {
   }, [API_KEY]);
 
   return (
-      <div className="top-losers">
+    <div className="top-losers">
         <h2>Top Losers of the Day</h2>
         <ul>
           {losers.map((stock) => (
-            <li
-              key={stock.ticker}
-              onClick={() => onStockSelect(stock.ticker)}>
+            <li key={stock.ticker}>
               <div className="stock-item">
-                <div className="stock-ticker">{stock.ticker}</div>
-              <span className="stock-loss">{stock.changesPercentage}</span>
+                <div
+                  className="stock-ticker"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => onStockSelect?.(stock.ticker)}
+                >
+                  {stock.ticker}
+                </div>
+                <div>
+                  <span className="stock-loss">{stock.changesPercentage}</span>
+                  <button
+                    onClick={() => toggleWatch?.(stock.ticker)}
+                    style={{ marginLeft: '10px', cursor: 'pointer' }}
+                  >
+                    {watchlist?.includes(stock.ticker) ? '★' : '☆'}
+                  </button>
+                </div>
               </div>
-          </li>
+            </li>
           ))}
         </ul>
-      </div>
+    </div>
   );
 };
 

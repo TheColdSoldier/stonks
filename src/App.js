@@ -1,20 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import TopGainers from './components/TopGainers';
+import TopLosers from './components/TopLosers';
 import TrendsChart from './components/TrendsChart';
 import Advice from './components/Advice';
-import TopLosers from "./components/TopLosers";
+import Watchlist from './components/Watchlist';
 
 function App() {
-
-  const [selectedStock, setSelectedStock] = useState('AAPL'); // default to AAPL
+  const [selectedStock, setSelectedStock] = useState('AAPL'); // Default to AAPL
   const [searchInput, setSearchInput] = useState('');
+  const [watchlist, setWatchlist] = useState([]);
+
+  // Load watchlist from localStorage on mount
+  useEffect(() => {
+    const storedWatchlist = localStorage.getItem('watchlist');
+    if (storedWatchlist) {
+      setWatchlist(JSON.parse(storedWatchlist));
+    }
+  }, []);
+
+  // Save watchlist to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+  }, [watchlist]);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchInput.trim() !== '') {
       setSelectedStock(searchInput.trim().toUpperCase());
       setSearchInput('');
     }
+  };
+
+  const toggleWatch = (ticker) => {
+    setWatchlist((prev) =>
+      prev.includes(ticker)
+        ? prev.filter((t) => t !== ticker)
+        : [...prev, ticker]
+    );
   };
 
   return (
@@ -31,14 +54,17 @@ function App() {
           <button type="submit">Search</button>
         </form>
       </header>
+
       <main className="page-layout">
         <div className="sidebar">
-          <TopGainers onStockSelect={setSelectedStock} />
-          <TopLosers onStockSelect={setSelectedStock} />
+          <TopGainers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
+          <TopLosers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
+          <Watchlist stocks={watchlist} onStockSelect={setSelectedStock} toggleWatch={toggleWatch} />
         </div>
+
         <div className="content">
           <TrendsChart selectedStock={selectedStock} />
-          <Advice/>
+          <Advice />
         </div>
       </main>
     </div>
