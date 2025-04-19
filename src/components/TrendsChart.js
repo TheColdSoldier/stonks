@@ -17,12 +17,17 @@ const TrendsChart = () => {
     const fetchTrend = async () => {
       try {
         const res = await axios.get(
-          `https://financialmodelingprep.com/api/v3/historical-price-full/%5EGSPC?serietype=line&apikey=${API_KEY}`
+//  Apple Stock for Debugging
+ `https://financialmodelingprep.com/api/v3/historical-price-full/AAPL?serietype=line&apikey=${API_KEY}`
+//          `https://financialmodelingprep.com/api/v3/historical-price-full/%5EGSPC?serietype=line&apikey=${API_KEY}`
         );
-        const hist = res.data.historical.slice(0, 30).reverse();
-        setData(
-          hist.map((item) => ({ date: item.date, close: item.close }))
-        );
+        console.log("Trend API response:", res.data);
+        if (res.data && res.data.historical) {
+          const hist = res.data.historical.slice(0, 30).reverse();
+          setData(hist.map((item) => ({ date: item.date, close: item.close })));
+        } else {
+          console.warn("No historical data found");
+        }
       } catch (error) {
         console.error('Error fetching market trends:', error);
       }
@@ -32,7 +37,7 @@ const TrendsChart = () => {
 
   return (
     <section className="TrendsChart">
-      <h2>Market Trends (Last 30 Days)</h2>
+      <h2>Apple Stock(Last 30 Days)</h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <XAxis dataKey="date" />

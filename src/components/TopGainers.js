@@ -8,6 +8,8 @@ const TopGainers = () => {
   useEffect(() => {
     const fetchGainers = async () => {
       try {
+        // Use to debug the code when needed
+//        console.log("API_KEY:", API_KEY)
         const res = await axios.get(
           `https://financialmodelingprep.com/api/v3/gainers?apikey=${API_KEY}`
         );
