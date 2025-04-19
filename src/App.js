@@ -55,18 +55,22 @@ function App() {
         </form>
       </header>
 
-      <main className="page-layout">
-        <div className="sidebar">
-          <TopGainers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
-          <TopLosers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
-          <Watchlist stocks={watchlist} onStockSelect={setSelectedStock} toggleWatch={toggleWatch} />
-        </div>
+     <main className="page-layout">
+  <div className="sidebar">
+    <TopGainers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
+    <TopLosers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
+  </div>
 
-        <div className="content">
-          <TrendsChart selectedStock={selectedStock} />
-          <Advice />
-        </div>
-      </main>
+  <div className="content">
+    <TrendsChart selectedStock={selectedStock} />
+    <Advice />
+    <Watchlist
+      stocks={watchlist}
+      onStockSelect={setSelectedStock}
+      toggleWatch={toggleWatch}
+    />
+  </div>
+</main>
     </div>
   );
 }
