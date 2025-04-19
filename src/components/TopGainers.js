@@ -9,7 +9,7 @@ import {
   YAxis
 } from 'recharts';
 
-const TopGainers = ({ onStockSelect, watchlist, toggleWatch }) => {
+const TopGainers = ({ onStockSelect, watchlist, toggleWatch, theme }) => {
   const [gainers, setGainers] = useState([]);
   const [hoveredTicker, setHoveredTicker] = useState(null);
   const [hoveredData, setHoveredData] = useState([]);
@@ -67,11 +67,32 @@ const TopGainers = ({ onStockSelect, watchlist, toggleWatch }) => {
               {hoveredTicker === stock.ticker && hoveredData.length > 0 && (
                 <div className="minigraph">
                   <ResponsiveContainer width="100%" height={60}>
-                    <LineChart data={hoveredData}>
-                      <XAxis dataKey="date" hide />
-                      <YAxis hide domain={['dataMin', 'dataMax']} />
-                      <Tooltip />
-                      <Line type="monotone" dataKey="close" stroke="#82ca9d" dot={false} strokeWidth={2} />
+                    <LineChart
+                      width={150}
+                      height={50}
+                      data={hoveredData}
+                      style={{
+                        backgroundColor: theme === 'dark' ? '#1c1c2b' : '#ffffff',
+                        borderRadius: '8px'
+                      }}
+                    >
+                      <XAxis hide dataKey="date" />
+                      <YAxis hide />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: theme === 'dark' ? '#2e2e3d' : '#ffffff',
+                          color: theme === 'dark' ? '#ffffff' : '#000000',
+                          borderRadius: '6px'
+                        }}
+                        labelStyle={{
+                          color: theme === 'dark' ? '#cccccc' : '#000000',
+                          fontWeight: 'bold'
+                        }}
+                        itemStyle={{
+                          color: theme === 'dark' ? '#a0f0a0' : '#006400'
+                        }}
+                      />
+                      <Line type="monotone" dataKey="close" stroke={theme === 'dark' ? '#82ca9d' : '#ff6347'} dot={false} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>

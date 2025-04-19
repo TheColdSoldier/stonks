@@ -12,19 +12,25 @@ function App() {
   const [watchlist, setWatchlist] = useState([]);
   const [currentPage, setCurrentPage] = useState('Dashboard');
   const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
   const [theme, setTheme] = useState('dark');
+  const dropdownRef = useRef(null);
 
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(storedTheme);
+  }, []);
 
-    useEffect(() => {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      setTheme(savedTheme);
-    }, []);
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
-    useEffect(() => {
-      localStorage.setItem('theme', theme);
-    }, [theme]);
-    
+  useEffect(() => {
+    const storedWatchlist = localStorage.getItem('watchlist');
+    if (storedWatchlist) {
+      setWatchlist(JSON.parse(storedWatchlist));
+    }
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -36,6 +42,7 @@ function App() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
   useEffect(() => {
     localStorage.setItem('watchlist', JSON.stringify(watchlist));
   }, [watchlist]);
@@ -92,7 +99,12 @@ function App() {
             <TopLosers onStockSelect={setSelectedStock} watchlist={watchlist} toggleWatch={toggleWatch} />
           </div>
           <div className="content">
-            <TrendsChart selectedStock={selectedStock} />
+            <TrendsChart
+              selectedStock={selectedStock}
+              theme={theme}
+              watchlist={watchlist}
+              toggleWatch={toggleWatch}
+            />
             <Advice />
             <Watchlist stocks={watchlist} onStockSelect={setSelectedStock} toggleWatch={toggleWatch} />
           </div>
@@ -109,20 +121,21 @@ function App() {
       {currentPage === 'Settings' && (
         <main className="content">
           <h2 style={{ marginLeft: '20px' }}>⚙️ Settings</h2>
-         <div style={{ marginLeft: '20px', marginTop: '10px' }}>
-           <label htmlFor="theme-toggle">Toggle Theme: </label>
-           <select
-             id="theme-toggle"
-             value={theme}
-             onChange={(e) => setTheme(e.target.value)}
-           >
-             <option value="dark">Dark</option>
-             <option value="light">Light</option>
-           </select>
-         </div>
+          <div style={{ marginLeft: '20px', marginTop: '10px' }}>
+            <label htmlFor="theme-toggle">Toggle Theme: </label>
+            <select
+              id="theme-toggle"
+              value={theme}
+              onChange={(e) => setTheme(e.target.value)}
+            >
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+            </select>
+          </div>
         </main>
       )}
     </div>
   );
 }
+
 export default App;

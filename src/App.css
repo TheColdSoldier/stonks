@@ -68,6 +68,19 @@
   background-color: #4caf50;
   color: white;
 }
+.TrendsChart,
+.TrendsChart * {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.App.light .App-header h1,
+.App.light h2,
+.App.light h3,
+.App.light p,
+.App.light span,
+.App.light div{
+  color: #000000;
+}
 
 .App.light .dropdown-toggle:hover {
   background-color: #cccccc;
@@ -202,7 +215,6 @@
 }
 
 section {
-  background-color: #1c1c2b;
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.25);
@@ -365,6 +377,35 @@ section h2 {
   border-radius: 8px;
   padding: 4px;
   box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
+.StockDetails {
+  background-color: #1e1e2f;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.25);
+}
+
+.StockDetails img {
+  margin: 10px 0;
+}
+
+.StockDetails ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.StockDetails li {
+  margin-bottom: 12px;
+}
+
+.StockDetails a {
+  color: #8ab4f8;
+  text-decoration: none;
+}
+.StockDetails a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {

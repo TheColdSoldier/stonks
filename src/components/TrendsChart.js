@@ -9,7 +9,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
-const TrendsChart = ({ selectedStock }) => {
+const TrendsChart = ({ selectedStock, theme, watchlist, toggleWatch }) => {
   const [data, setData] = useState([]);
   const [range, setRange] = useState('1M');
   const API_KEY = process.env.REACT_APP_FMP_API_KEY;
@@ -42,9 +42,35 @@ const TrendsChart = ({ selectedStock }) => {
   }, [selectedStock, API_KEY, range]);
 
   return (
-    <section className="TrendsChart">
-      <h2>{selectedStock} Stock ({range})</h2>
-      <div className="range-selector">
+    <section
+      className="TrendsChart"
+      style={{
+        backgroundColor: theme === 'dark' ? '#1c1c2b' : '#f5f5f5',
+        color: theme === 'dark' ? '#ffffff' : '#000000',
+        borderRadius: '12px',
+        padding: '20px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.25)',
+        transition: 'background-color 0.3s ease, color 0.3s ease'
+      }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h2 style={{ margin: 0 }}>{selectedStock} Stock ({range})</h2>
+        <button
+          onClick={() => toggleWatch?.(selectedStock)}
+          style={{
+            fontSize: '1.5rem',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            color: watchlist?.includes(selectedStock) ? '#ffd700' : '#888'
+          }}
+          title="Toggle Watchlist"
+        >
+          {watchlist?.includes(selectedStock) ? '★' : '☆'}
+        </button>
+      </div>
+
+      <div className="range-selector" style={{ marginTop: '10px' }}>
         {['1D', '1W', '1M', '6M', '1Y', 'MAX'].map((r) => (
           <button
             key={r}
@@ -55,12 +81,39 @@ const TrendsChart = ({ selectedStock }) => {
           </button>
         ))}
       </div>
+
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data}>
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Line type="monotone" dataKey="close" dot={false} stroke="#82ca9d" />
+        <LineChart
+          data={data}
+          style={{
+            backgroundColor: theme === 'dark' ? '#1c1c2b' : '#ffffff',
+            padding: '10px',
+            borderRadius: '10px'
+          }}
+        >
+          <XAxis dataKey="date" stroke={theme === 'dark' ? '#e0e0e0' : '#000000'} />
+          <YAxis stroke={theme === 'dark' ? '#e0e0e0' : '#000000'} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: theme === 'dark' ? '#2e2e3d' : '#ffffff',
+              border: theme === 'dark' ? '1px solid #444' : '1px solid #ccc',
+              borderRadius: '8px'
+            }}
+            labelStyle={{
+              color: theme === 'dark' ? '#cccccc' : '#000000',
+              fontWeight: 'bold'
+            }}
+            itemStyle={{
+              color: theme === 'dark' ? '#a0f0a0' : '#006400',
+              fontWeight: 500
+            }}
+          />
+          <Line
+            type="monotone"
+            dataKey="close"
+            dot={false}
+            stroke={theme === 'dark' ? '#82ca9d' : '#ff6347'}
+          />
         </LineChart>
       </ResponsiveContainer>
     </section>
