@@ -1,15 +1,14 @@
+// TopGainers.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const TopGainers = () => {
+const TopGainers = ({ onStockSelect }) => {
   const [gainers, setGainers] = useState([]);
   const API_KEY = process.env.REACT_APP_FMP_API_KEY;
 
   useEffect(() => {
     const fetchGainers = async () => {
       try {
-        // Use to debug the code when needed
-//        console.log("API_KEY:", API_KEY)
         const res = await axios.get(
           `https://financialmodelingprep.com/api/v3/gainers?apikey=${API_KEY}`
         );
@@ -22,17 +21,22 @@ const TopGainers = () => {
   }, [API_KEY]);
 
   return (
-    <div className="sidebar">
-    <section className="TopGainers">
+    <div className="top-gainers">
       <h2>Top Gainers of the Day</h2>
       <ul>
         {gainers.map((stock) => (
-          <li key={stock.ticker}>
-            {stock.ticker}: {stock.changesPercentage}
-          </li>
+          <ul>
+            {gainers.slice(0, 5).map((stock) => (
+              <li key={stock.ticker} onClick={() => onStockSelect?.(stock.ticker)}>
+                <div className="stock-item">
+                  <div className="stock-ticker">{stock.ticker}</div>
+                  <span className="stock-gain">{stock.changesPercentage}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
         ))}
       </ul>
-    </section>
     </div>
   );
 };

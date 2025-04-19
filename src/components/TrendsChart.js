@@ -9,41 +9,58 @@ import {
   ResponsiveContainer
 } from 'recharts';
 
-const TrendsChart = () => {
+const TrendsChart = ({ selectedStock }) => {
   const [data, setData] = useState([]);
+  const [range, setRange] = useState('1M');
   const API_KEY = process.env.REACT_APP_FMP_API_KEY;
+
+  const getDataPointsForRange = {
+    '1D': 1,
+    '1W': 5,
+    '1M': 22,
+    '6M': 132,
+    '1Y': 260,
+    'MAX': 1000
+  };
 
   useEffect(() => {
     const fetchTrend = async () => {
       try {
         const res = await axios.get(
-//  Apple Stock for Debugging
- `https://financialmodelingprep.com/api/v3/historical-price-full/AAPL?serietype=line&apikey=${API_KEY}`
-//          `https://financialmodelingprep.com/api/v3/historical-price-full/%5EGSPC?serietype=line&apikey=${API_KEY}`
+          `https://financialmodelingprep.com/api/v3/historical-price-full/${selectedStock}?serietype=line&apikey=${API_KEY}`
         );
-        console.log("Trend API response:", res.data);
-        if (res.data && res.data.historical) {
-          const hist = res.data.historical.slice(0, 30).reverse();
+        if (res.data?.historical) {
+          const days = getDataPointsForRange[range] || 30;
+          const hist = res.data.historical.slice(0, days).reverse();
           setData(hist.map((item) => ({ date: item.date, close: item.close })));
-        } else {
-          console.warn("No historical data found");
         }
       } catch (error) {
         console.error('Error fetching market trends:', error);
       }
     };
-    fetchTrend();
-  }, [API_KEY]);
+    if (selectedStock) fetchTrend();
+  }, [selectedStock, API_KEY, range]);
 
   return (
     <section className="TrendsChart">
-      <h2>Apple Stock(Last 30 Days)</h2>
+      <h2>{selectedStock} Stock ({range})</h2>
+      <div className="range-selector">
+        {['1D', '1W', '1M', '6M', '1Y', 'MAX'].map((r) => (
+          <button
+            key={r}
+            onClick={() => setRange(r)}
+            className={range === r ? 'active' : ''}
+          >
+            {r}
+          </button>
+        ))}
+      </div>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <XAxis dataKey="date" />
           <YAxis />
           <Tooltip />
-          <Line type="monotone" dataKey="close" dot={false} />
+          <Line type="monotone" dataKey="close" dot={false} stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
     </section>
