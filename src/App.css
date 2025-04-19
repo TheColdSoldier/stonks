@@ -5,6 +5,61 @@
   min-height: 100vh;
   overflow: hidden;
 }
+.dropdown-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.dropdown-toggle {
+  background-color: #2e2e3d;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s;
+}
+
+.dropdown-toggle:hover {
+  background-color: #3e3e4e;
+}
+
+.dropdown-menu {
+  background-color: #1e1e2f;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  animation: slideBounce 0.4s ease;
+  overflow: hidden;
+}
+
+.dropdown-menu div {
+  padding: 10px 16px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dropdown-menu div:hover {
+  background-color: #323245;
+}
+
+@keyframes slideBounce {
+  0% {
+    transform: translateY(-15px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
 .App-header {
   background-color: #1e1e2f;
@@ -235,6 +290,14 @@ section h2 {
 
 .range-selector .active {
   background-color: #4caf50;
+}
+
+.minigraph {
+  margin-top: 5px;
+  background-color: #1b1b1b;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
 @media (max-width: 768px) {
