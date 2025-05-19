@@ -20,7 +20,7 @@ const TrendsChart = ({ selectedStock, theme, watchlist, toggleWatch }) => {
     '1M': 22,
     '6M': 132,
     '1Y': 260,
-    'MAX': 1000
+    'MAX': 10000
   };
 
   useEffect(() => {

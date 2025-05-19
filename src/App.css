@@ -5,6 +5,53 @@
   min-height: 100vh;
   overflow: hidden;
 }
+
+.Watchlist ul {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.Watchlist li {
+  margin-bottom: 10px;
+}
+
+/* Watchlist buttons */
+.watchlist-stock-button {
+  background-color: transparent;
+  border: 1px solid #888;
+  padding: 6px 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.watchlist-stock-button:hover {
+  background-color: #3a3a4a;
+  color: #ffffff;
+}
+.remove-btn {
+  background-color: #ff4c4c;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.remove-btn:hover {
+  background-color: #cc0000;
+}
+
 .dropdown-container {
   position: absolute;
   top: 20px;

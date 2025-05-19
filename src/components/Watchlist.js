@@ -11,8 +11,21 @@ const Watchlist = ({ stocks, onStockSelect, toggleWatch }) => {
           {stocks.map((ticker) => (
             <li key={ticker}>
               <div className="stock-item">
-                <div onClick={() => onStockSelect(ticker)}>{ticker}</div>
-                <button onClick={() => toggleWatch(ticker)}>✕</button>
+                <button
+                  className="watchlist-stock-button"
+                  onClick={() => onStockSelect(ticker)}
+                  title={`View ${ticker}`}
+                >
+                  {ticker}
+                </button>
+                <button
+                  className="remove-btn"
+                  onClick={() => toggleWatch(ticker)}
+                  title="Remove from Watchlist"
+                  aria-label={`Remove ${ticker}`}
+                >
+                  ✕
+                </button>
               </div>
             </li>
           ))}
